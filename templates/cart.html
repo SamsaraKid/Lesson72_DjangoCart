@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body>
+
+    <table>
+        {% for i in items %}
+            <tr>
+                <td>{{ i.tovar.opis }}</td>
+                <td>{{ i.count }} шт.</td>
+                <td>{{ i.summa }} руб.</td>
+                <td><a href="{% url 'del' i.id %}"><button>Удалить</button></a></td>
+                <td><a href="{% url 'minus' i.id %}"><button>-</button></a></td>
+                <td><a href="{% url 'plus' i.id %}"><button>+</button></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Сумма: {{ summa }}</h2>
+    <a href="{% url 'home' %}">
+        <button>В магазин</button>
+    </a>
+
+</body>
+</html>

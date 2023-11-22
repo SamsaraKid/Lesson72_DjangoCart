@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+
+    <header>
+        <p>Магазин игрушек для детей и зверей</p>
+        <a href="{% url 'cart' %}">
+            <button>Корзина</button>
+        </a>
+    </header>
+
+    <main>
+        {% for t in tovari %}
+            <div class="card">
+                <img src="{% static t.image %}" alt="">
+                <p>{{ t.opis }}</p>
+                <p>{{ t.price }} руб.</p>
+                <a href="{% url 'buy' id=t.id %}">
+                    <button>Купить</button>
+                </a>
+            </div>
+        {% endfor %}
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+body{
+    font-family: "Malgun Gothic";
+}
+
+button{
+    font-family: inherit;
+}
+
+header{
+    border: black solid 1px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: lightgray;
+}
+
+header p{
+    margin: 0;
+}
+
+main{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card{
+    width: 150px;
+    text-align: center;
+    border: black solid 1px;
+    flex-basis: 200px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: lightgray;
+}
+
+.card img{
+    width: 95%;
+}
