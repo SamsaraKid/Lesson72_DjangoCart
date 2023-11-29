@@ -22,8 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='home'),
     path('cart/<int:id>', views.buy, name='buy'),
-    path('korzina', views.cart, name='cart'),
+    path('cart/', views.cart, name='cart'),
     path('delete/<int:id>', views.delete, name='del'),
     path('plus/<int:id>', views.plus, name='plus'),
     path('minus/<int:id>', views.minus, name='minus'),
+    path('cart/complete', views.cartcomplete, name='cartcomplete'),
 ]

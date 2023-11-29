@@ -23,11 +23,25 @@
 
     <h2>Сумма: {{ summa }}</h2>
 
-    <button id="fin">Оформить</button>
-
     <a href="{% url 'home' %}">
         <button>В магазин</button>
     </a>
+
+    <button id="fin">Оформить</button>
+
+    <div id="forma" hidden>
+        <form action="">
+            <label for="address">Адрес</label>
+            <input type="text" id="address">
+            <label for="name">Имя</label>
+            <input type="text" id="name">
+            <label for="phone">Телефон</label>
+            <input type="text" id="phone">
+            <input type="button" value="Подтвердить" id="fin2">
+        </form>
+    </div>
+
+
 
 </body>
 </html>
