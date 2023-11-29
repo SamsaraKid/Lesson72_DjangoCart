@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .models import *
 
 
@@ -51,3 +51,8 @@ def minus(req, id):
     else:
         item.delete()
     return redirect('cart')
+
+
+def cartcomplete(req):
+    return HttpResponse('<h1>спасибо за заказ</h1>')
+
