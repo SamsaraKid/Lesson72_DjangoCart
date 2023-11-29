@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cart</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="{% static 'main.js' %}" defer></script>
 </head>
 <body>
@@ -24,8 +25,7 @@
     <h2>Сумма: {{ summa }}</h2>
 
     <a href="{% url 'home' %}">
-        <button>В магазин</button>
-    </a>
+        <button>В магазин</button></a>
 
     <button id="fin">Оформить</button>
 

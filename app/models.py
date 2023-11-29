@@ -15,3 +15,17 @@ class Korzina(models.Model):
 
     def calcSumma(self):
         return self.count * self.tovar.price * self.tovar.skidka
+
+
+class Zakaz(models.Model):
+    address = models.CharField(max_length=100)
+    name = models.CharField(max_length=20)
+    phone = models.CharField(max_length=10)
+    total = models.DecimalField(decimal_places=2, max_digits=8, null=True, blank=True)
+
+
+class Zacazitems(models.Model):
+    tovar = models.ForeignKey(Tovar, on_delete=models.CASCADE)
+    count = models.IntegerField()
+    zakaz = models.ForeignKey(Zakaz, on_delete=models.CASCADE)
+
