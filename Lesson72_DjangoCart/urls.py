@@ -26,5 +26,6 @@ urlpatterns = [
     path('delete/<int:id>', views.delete, name='del'),
     path('plus/<int:id>', views.plus, name='plus'),
     path('minus/<int:id>', views.minus, name='minus'),
+    path('cart/pobeda/', views.pobeda, name='pobeda'),
     path('cart/complete', views.cartcomplete, name='cartcomplete'),
 ]

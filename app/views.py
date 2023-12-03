@@ -4,6 +4,7 @@ from .models import *
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 import requests
+import json
 
 
 
@@ -57,25 +58,42 @@ def minus(req, id):
         item.delete()
     return redirect('cart')
 
+
+def cart_to_order(Korzina_model, Zakaz_model, address, name, phone):
+    zakaz = Zakaz_model.objects.create(address=address, name=name, phone=phone, total=0)
+    zakazitemsstr = ''
+    for i in Korzina_model.objects.all():
+        Zacazitems.objects.create(tovar=i.tovar, count=i.count, zakaz=zakaz)
+        zakaz.total += i.summa
+        zakaz.save()
+        zakazitemsstr += str(i.tovar.opis) + ' ' + str(i.count) + '\n'
+        i.delete()
+    return zakazitemsstr, zakaz.total
+
+
+def pobeda(req):
+    print('pobeda')
+    if req.body:
+        data = json.loads(req.body.decode("UTF-8"))
+        address = data['address']
+        name = data['name']
+        phone = data['phone']
+        zakazitemsstr, total = cart_to_order(Korzina, Zakaz, address, name, phone)
+        print(zakazitemsstr, total)
+    return JsonResponse({'mes': 'data success', 'link': '../'})
+
+
 @method_decorator(csrf_exempt, name='dispatch')
 def cartcomplete(req):
     if req.POST:
         address = req.POST.get('address')
         name = req.POST.get('name')
         phone = req.POST.get('phone')
-        zakaz = Zakaz.objects.create(address=address, name=name, phone=phone, total=0)
-        zakazitemsstr = ''
-        for i in Korzina.objects.all():
-            Zacazitems.objects.create(tovar=i.tovar, count=i.count, zakaz=zakaz)
-            zakaz.total += i.summa
-            zakaz.save()
-            zakazitemsstr += str(i.tovar.opis) + ' ' + str(i.count) + '\n'
-            i.delete()
-        print(zakazitemsstr)
+        zakazitemsstr, total = cart_to_order(Korzina, Zakaz, address, name, phone)
         ####################################################################
         TOKEN = "6169999140:AAFzZpas7wx-gQsuFRZ0puhLNcPMYNSxsL8"
         chat_id = "50853567"
-        message = zakazitemsstr + address + ' ' + name + ' ' + phone + ' ' + str(zakaz.total)
+        message = zakazitemsstr + address + ' ' + name + ' ' + phone + ' ' + str(total)
         url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
         print(requests.get(url).json())  # Эта строка отсылает сообщение
         #######################################################################

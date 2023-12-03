@@ -37,10 +37,15 @@
             <input type="text" id="name">
             <label for="phone">Телефон</label>
             <input type="text" id="phone">
-            <input type="button" value="Подтвердить" id="fin2">
+            <input type="button" value="Подтвердить через Fetch" id="fin2">
+            <input type="button" value="Подтвердить через AJAX" id="fin3">
         </form>
     </div>
 
+<script>
+    // передаём токен в js
+    const csrf_token = "{{ csrf_token }}";
+</script>
 
 
 </body>
