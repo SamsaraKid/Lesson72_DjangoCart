@@ -13,9 +13,11 @@
         {% for i in items %}
             <tr>
                 <td>{{ i.tovar.opis }}</td>
-                <td><a href="{% url 'minus' i.id %}"><button>-</button></a></td>
+                <td><a href="{% url 'count' -1 i.id %}"><button>-</button></a></td>
+{#                <td><a href="{% url 'minus' i.id %}"><button>-</button></a></td>#}
                 <td>{{ i.count }} шт.</td>
-                <td><a href="{% url 'plus' i.id %}"><button>+</button></a></td>
+                <td><a href="{% url 'count' 1 i.id %}"><button>+</button></a></td>
+{#                <td><a href="{% url 'plus' i.id %}"><button>+</button></a></td>#}
                 <td>{{ i.summa }} руб.</td>
                 <td><a href="{% url 'del' i.id %}"><button>Удалить</button></a></td>
             </tr>

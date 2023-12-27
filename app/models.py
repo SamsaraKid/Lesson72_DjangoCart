@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Tovar(models.Model):
@@ -7,8 +8,12 @@ class Tovar(models.Model):
     image = models.CharField(max_length=500)
     skidka = models.FloatField(default=1)
 
+    def __str__(self):
+        return self.opis
+
 
 class Korzina(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     tovar = models.ForeignKey(Tovar, on_delete=models.CASCADE)
     count = models.IntegerField()
     summa = models.DecimalField(decimal_places=2, max_digits=8)

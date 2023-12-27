@@ -28,4 +28,5 @@ urlpatterns = [
     path('minus/<int:id>', views.minus, name='minus'),
     path('cart/pobeda/', views.pobeda, name='pobeda'),
     path('cart/complete', views.cartcomplete, name='cartcomplete'),
+    path('cart/<str:num>/<int:id>', views.cartcount, name='count'),
 ]
