@@ -17,23 +17,35 @@ def index(req):
 
 def buy(req, id):
     item = Tovar.objects.get(id=id)
-    user = req.user
-    # if not user.username:
-    #     newuser = User.objects.create_user(username='Tempuser')
-    #
-    if user.username:
-        if Korzina.objects.filter({'tovar_id': id, 'user_id': user.id}):
-            selected = Korzina.objects.get(tovar_id=id)
-            selected.count += 1
-            selected.summa = selected.calcSumma()
-            selected.save()
-        else:
-            Korzina.objects.create(count=1, tovar=item, summa=item.price, user_id=user.id)
-    # else:
-    #     newuser = User.objects.create_user(username='Tempuser')
-    #
-    #     Korzina.objects.create(count=1, tovar=item, summa=item.price)
+    if Korzina.objects.filter(tovar_id=id):
+        selected = Korzina.objects.get(tovar_id=id)
+        selected.count += 1
+        selected.summa = selected.calcSumma()
+        selected.save()
+    else:
+        Korzina.objects.create(count=1, tovar=item, summa=item.price)
     return redirect('home')
+
+
+# def buy(req, id):
+#     item = Tovar.objects.get(id=id)
+#     user = req.user
+#     # if not user.username:
+#     #     newuser = User.objects.create_user(username='Tempuser')
+#     #
+#     if user.username:
+#         if Korzina.objects.filter({'tovar_id': id, 'user_id': user.id}):
+#             selected = Korzina.objects.get(tovar_id=id)
+#             selected.count += 1
+#             selected.summa = selected.calcSumma()
+#             selected.save()
+#         else:
+#             Korzina.objects.create(count=1, tovar=item, summa=item.price, user_id=user.id)
+#     # else:
+#     #     newuser = User.objects.create_user(username='Tempuser')
+#     #
+#     #     Korzina.objects.create(count=1, tovar=item, summa=item.price)
+#     return redirect('home')
 
 
 def cart(req):
@@ -90,7 +102,7 @@ def pobeda(req):
         phone = data['phone']
         zakazitemsstr, total = cart_to_order(Korzina, Zakaz, address, name, phone)
         print(zakazitemsstr, total)
-    return JsonResponse({'mes': 'data success', 'link': '../'})
+    return JsonResponse({'mes': 'data success', 'link': '/'})
 
 
 @method_decorator(csrf_exempt, name='dispatch')
