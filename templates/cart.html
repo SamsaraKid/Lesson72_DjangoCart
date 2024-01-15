@@ -42,7 +42,24 @@
             <input type="button" value="Подтвердить через Fetch" id="fin2">
             <input type="button" value="Подтвердить через AJAX" id="fin3">
         </form>
+
     </div>
+
+    <div>
+        <form action="" novalidate method="post" id="forma1">
+            {% csrf_token %}
+            {% for f in form %}
+                <div>{{ f.label_tag }}</div>
+                <div>{{ f }}</div>
+                <div>{{ f.errors }}</div>
+            {% endfor %}
+            <input type="submit" value="Подтвердить" id="myformbut">
+{#            <input type="button" value="Подтвердить через AJAX" id="fin4">#}
+        </form>
+
+    </div>
+
+
 
 <script>
     // передаём токен в js

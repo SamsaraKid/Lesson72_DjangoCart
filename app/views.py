@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 import requests
 import json
 import random
+from.forms import *
 
 
 
@@ -50,10 +51,15 @@ def buy(req, id):
 
 def cart(req):
     items = Korzina.objects.filter(user_id=req.user.id)
+    myform = MyForm()
     summa = 0
     for i in items:
         summa += i.summa
-    data = {'items': items, 'summa': summa}
+    if req.POST:
+        myform = MyForm(req.POST)
+        if myform.is_valid():
+            print('valid')
+    data = {'items': items, 'summa': summa, 'form': myform}
     return render(req, 'cart.html', context=data)
 
 
@@ -107,6 +113,7 @@ def pobeda(req):
 
 @method_decorator(csrf_exempt, name='dispatch')
 def cartcomplete(req):
+    print('run')
     if req.POST:
         address = req.POST.get('address')
         name = req.POST.get('name')
