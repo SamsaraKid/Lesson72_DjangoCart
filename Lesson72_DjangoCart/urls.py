@@ -29,4 +29,5 @@ urlpatterns = [
     path('cart/pobeda/', views.pobeda, name='pobeda'),
     path('cart/complete', views.cartcomplete, name='cartcomplete'),
     path('cart/<str:num>/<int:id>', views.cartcount, name='count'),
+    path('tofavorites/', views.tofavorites, name='tofavorites')
 ]

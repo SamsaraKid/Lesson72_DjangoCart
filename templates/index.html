@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>Shop</title>
     <link rel="stylesheet" href="{% static 'main.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="{% static 'likes.js' %}" defer></script>
 </head>
 <body>
 
@@ -18,6 +20,13 @@
     <main>
         {% for t in tovari %}
             <div class="card">
+                <div onclick="flike(event, {{ t.id }})">
+                    {% if t.favorites_set.values %}
+                        <img class="like-img" src="{% static 'img/like.png' %}" alt="">
+                    {% else %}
+                        <img class="like-img" src="{% static 'img/notlike.png' %}" alt="">
+                    {% endif %}
+                </div>
                 <img src="{% static t.image %}" alt="">
                 <p>{{ t.opis }}</p>
                 <p>{{ t.price }} руб.</p>

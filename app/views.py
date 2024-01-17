@@ -12,7 +12,8 @@ from.forms import *
 
 def index(req):
     items = Tovar.objects.all()
-    data = {'tovari': items}
+    favorites = Favorites.objects.all()
+    data = {'tovari': items, 'favorites': favorites}
     return render(req, 'index.html', context=data)
 
 
@@ -142,3 +143,16 @@ def cartcount(req, num, id):
         tovar.summa = tovar.calcSumma()
         tovar.save()
     return redirect('cart')
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+def tofavorites(req):
+    if req.POST:
+        k1 = req.POST.get('k1')
+        k2 = req.POST.get('k2')
+        if Favorites.objects.filter(tovar_id=k1):
+            Favorites.objects.get(tovar_id=k1).delete()
+        else:
+            Favorites.objects.create(tovar_id=k1)
+        return JsonResponse({'mes': 'data success', 'link': ''})
+    return redirect('home')

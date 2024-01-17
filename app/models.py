@@ -34,3 +34,7 @@ class Zacazitems(models.Model):
     count = models.IntegerField()
     zakaz = models.ForeignKey(Zakaz, on_delete=models.CASCADE)
 
+
+class Favorites(models.Model):
+    tovar = models.ForeignKey(Tovar, on_delete=models.CASCADE)
+
